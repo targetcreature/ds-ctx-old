@@ -3,11 +3,11 @@ import { createContext, useContext } from "react"
 import { _provider } from "./components/_provider"
 import { ArgProps, Init, SetStore, UseSetStore, UseStore } from "./_types"
 
-type ReturnProps<T> = [
-    React.FC,
-    UseStore<T>,
-    UseSetStore<T>
-]
+// type ReturnProps<T> = [
+//     React.FC,
+//     UseStore<T>,
+//     UseSetStore<T>
+// ]
 
 export type ICTX<T> = {
     [K in keyof T]?: {
@@ -22,7 +22,7 @@ export type ICTX<T> = {
 }
 
 
-export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnProps<T> => {
+export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps) => {
 
     if (ARGS) {
         ARGS.disableAutoFreeze && setAutoFreeze(false)
@@ -37,14 +37,14 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
         }
     }), {})
 
-    const ContextProvider = _provider(CTX)
+    const ContextProvider: React.FC = _provider(CTX)
 
     const useStore: UseStore<T> = <K extends keyof T>(key: K) => {
         const data = CTX[key].Context
         return useContext(data)
     }
 
-    const setStore = <K extends keyof T>(key: K): SetStore<T> => {
+    const setStore: UseSetStore<T> = <K extends keyof T>(key: K) => {
         const data = CTX[key].SetContext
         return useContext(data)
     }
