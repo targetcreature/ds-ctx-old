@@ -44,7 +44,7 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
     }
 
     const setStore: UseSetStore<T> = <K extends keyof T>(key: K) => {
-        const data = CTX[key].SetContext
+        const data = () => CTX[key].SetContext
         return useContext(data)
     }
 
