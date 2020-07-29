@@ -1,12 +1,12 @@
 import { setAutoFreeze } from "immer"
 import { createContext, useContext } from "react"
 import { _provider } from "./components/_provider"
-import { ArgProps, Init, SetStore, UseStore } from "./_types"
+import { ArgProps, Init, SetStore, UseSetStore, UseStore } from "./_types"
 
 type ReturnProps<T> = [
     React.FC,
     UseStore<T>,
-    () => SetStore<T>
+    UseSetStore<T>
 ]
 
 export type ICTX<T> = {
@@ -44,11 +44,16 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
         return useContext(data)
     }
 
-    const setStore = (): SetStore<T> =>
-        Object.entries(CTX).reduce((prev, [key, { SetContext }]) => ({
-            ...prev,
-            [key]: useContext(SetContext)
-        }), {} as SetStore<T>)
+    const setStore = <K extends keyof T>(key: K): SetStore<T> => {
+        const data = CTX[key].SetContext
+        return useContext(data)
+    }
+
+    // const setStore = (): SetStore<T> =>
+    //     Object.entries(CTX).reduce((prev, [key, { SetContext }]) => ({
+    //         ...prev,
+    //         [key]: useContext(SetContext)
+    //     }), {} as SetStore<T>)
 
     return [
         ContextProvider,
