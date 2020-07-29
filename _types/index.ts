@@ -15,7 +15,7 @@ export type SetStore<T> = {
 // }
 
 export type UseStore<T> = <K extends keyof T>(key: K) => T[K]
-export type UseSetStore<T> = <K extends keyof T>(key: K) => SetStore<T>
+export type UseSetStore<T> = <K extends keyof T>(key: K) => SetCallback<K, T>
 // export type UseSetStore<T> = <K extends keyof T>(key: K, cb: SetCallback<K, T>) => void
 
 // export type SetStore<T> = <K extends keyof T>(key: K) => (f?: (d: T[K] & { init: T[K] }) => void) => void

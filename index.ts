@@ -1,7 +1,7 @@
 import { setAutoFreeze } from "immer"
 import { createContext, useContext } from "react"
 import { _provider } from "./components/_provider"
-import { ArgProps, Init, SetStore, UseSetStore, UseStore } from "./_types"
+import { ArgProps, Init, SetCallback, UseSetStore, UseStore } from "./_types"
 
 type ReturnProps<T> = [
     React.FC,
@@ -13,7 +13,7 @@ export type ICTX<T> = {
     [K in keyof T]?: {
         initState: T[K] & { init: T[K] }
         Context: React.Context<T[K]>
-        SetContext: React.Context<SetStore<T>>
+        SetContext: React.Context<SetCallback<K, T>>
         state?: [
             T[K] & { init: T[K] },
             (f?: (d: T[K] & { init: T[K] }) => void) => void
