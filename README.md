@@ -64,10 +64,8 @@ export const Component = ()=>{
     const { truck } = useStore("cars")
     const { movies } = useStore("movies")
 
-    const set = setStore()
-
     const incrementApples = ()=> 
-        set.fruits((draft)=>{
+        setStore("fruits")((draft)=>{
             draft.apples += 1
         }) 
 

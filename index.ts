@@ -21,7 +21,6 @@ export type ICTX<T> = {
     }
 }
 
-
 export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnProps<T> => {
 
     if (ARGS) {
@@ -48,12 +47,6 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
         const data = CTX[key].SetContext
         return useContext(data)
     }
-
-    // const setStore = (): SetStore<T> =>
-    //     Object.entries(CTX).reduce((prev, [key, { SetContext }]) => ({
-    //         ...prev,
-    //         [key]: useContext(SetContext)
-    //     }), {} as SetStore<T>)
 
     return [
         ContextProvider,
