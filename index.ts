@@ -3,11 +3,11 @@ import { createContext, useContext } from "react"
 import { _provider } from "./components/_provider"
 import { ArgProps, Init, SetStore, UseSetStore, UseStore } from "./_types"
 
-// type ReturnProps<T> = [
-//     React.FC,
-//     UseStore<T>,
-//     UseSetStore<T>
-// ]
+type ReturnProps<T> = [
+    React.FC,
+    UseStore<T>,
+    UseSetStore<T>
+]
 
 export type ICTX<T> = {
     [K in keyof T]?: {
@@ -22,7 +22,7 @@ export type ICTX<T> = {
 }
 
 
-export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps) => {
+export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnProps<T> => {
 
     if (ARGS) {
         ARGS.disableAutoFreeze && setAutoFreeze(false)
