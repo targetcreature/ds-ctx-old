@@ -42,7 +42,7 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
 
 
     const useStore: UseStore<T> = <K extends keyof T>(key: K) => {
-        const { init, ...value } = useContext(CTX[key].Context)
+        const value = useContext(CTX[key].Context)
         return value
     }
 
