@@ -52,7 +52,7 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
 
                 if (typeof cb === "function") {
                     produce((draft) => {
-                        cb(draft, INITSTATE[key])
+                        return cb(draft, INITSTATE[key])
                     })
                 }
                 else {
