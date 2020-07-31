@@ -2,7 +2,7 @@ export type ArgProps = {
     disableAutoFreeze?: boolean
 }
 
-export type Init = { [k: string]: {} }
+export type Init = { [k: string]: any }
 
 export type SetStore<T> = {
     [K in keyof T]: (f?: (d: T[K] & { init: T[K] }) => void) => void
