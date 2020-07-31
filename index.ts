@@ -12,13 +12,9 @@ type ReturnProps<T> = [
 
 export type ICTX<T> = {
     [K in keyof T]?: {
-        initState: T[K] & { init: T[K] }
+        initState: T[K]
         Context: React.Context<T[K]>
         SetContext: React.Context<SetStore<T>>
-        state?: [
-            T[K] & { init: T[K] },
-            (f?: (d: T[K], i: T[K]) => void) => void
-        ]
     }
 }
 
@@ -52,16 +48,17 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
             type K = typeof key
 
             const produce: Updater<T[K]> = useContext(SetContext)
-            const newProduce = (cb: SetCallback<T, K> | SetValue<T, K>) => {
+            const newProduce = (cb?: SetCallback<T, K>, val?: SetValue<T, K>) => {
 
-                if (typeof cb === "function") {
+                if (cb) {
                     produce((draft) => {
-                        const { init, ...value } = draft
-                        return cb(value, init)
+                        const newVal = cb(draft, INITSTATE[key])
+                        return newVal
                     })
+
                 }
                 else {
-                    produce((draft) => cb)
+                    produce(() => val)
                 }
             }
 
