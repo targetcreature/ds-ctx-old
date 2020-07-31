@@ -3,9 +3,9 @@ dumb simple context splitter for nextjs
 
 webpack:
 ```js
-// next-config.js
+// next.config.js
 
-const withContext = require('next-transpile-modules')(['ds-context']);
+const withContext = require('next-transpile-modules')(['ds-ctx']);
 
 module.exports = withContext();
 ```

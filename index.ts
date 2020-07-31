@@ -40,8 +40,8 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
     const ContextProvider = _provider(CTX)
 
     const useStore: UseStore<T> = <K extends keyof T>(key: K) => {
-        const data = CTX[key].Context
-        return useContext(data)
+        const { init, ...value } = useContext(CTX[key].Context)
+        return [value, init]
     }
 
     const setStore = (): SetStore<T> =>
