@@ -54,20 +54,11 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
                     return !cb ? value : cb(draft, INITSTATE[key])
                 })
 
-                // if (typeof cb === "function") {
-                //     produce((draft) => {
-                //         return cb(draft, INITSTATE[key])
-                //     })
-                // }
-                // else {
-                //     produce(() => cb)
-                // }
             }
 
             return {
                 ...prev,
                 [key]: newProduce
-                // [key]: useContext(SetContext)
             }
         }, {} as SetStore<T>)
 
