@@ -2,7 +2,7 @@ import { setAutoFreeze } from "immer"
 import { createContext, useContext } from "react"
 import { Updater } from "use-immer"
 import { _provider } from "./components/_provider"
-import { ArgProps, Init, SetCallback, SetStore, UseStore } from "./_types"
+import { ArgProps, Init, SetProduce, SetStore, UseStore } from "./_types"
 
 type ReturnProps<T> = [
     React.FC,
@@ -48,7 +48,7 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
             type K = typeof key
 
             const produce: Updater<T[K]> = useContext(SetContext)
-            const newProduce = (value: T[K] = null, cb?: SetCallback<T, K>) => {
+            const newProduce: SetProduce<T, K> = (value = null, cb) => {
                 produce((draft) => {
                     return !cb ? value : cb(draft, INITSTATE[key])
                 })
