@@ -10,7 +10,7 @@ export const _provider = <T extends Init>(CTX: ICTX<T>) => ({ children }) => {
         const [store, set] = useImmer(initState)
 
         return (
-            <Context.Provider value={store[0]}>
+            <Context.Provider value={store}>
                 <SetContext.Provider value={set}>
                     {prev}
                 </SetContext.Provider>
