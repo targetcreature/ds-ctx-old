@@ -51,7 +51,10 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
             const newProduce = (cb: SetCallback<T, K>) => {
 
                 produce((draft) => {
-                    return cb(draft, INITSTATE[key])
+                    return typeof cb === "function" ?
+                        cb(draft, INITSTATE[key])
+                        :
+                        cb
                 })
 
                 // if (typeof cb === "function") {
