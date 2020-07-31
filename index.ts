@@ -48,6 +48,14 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
 
     const setStore = (): SetStore<T> =>
         Object.entries(CTX).reduce((prev, [key, { SetContext }]) => {
+
+            // const produce = ()=> useContext(SetContext)
+            // const newProduce = (cb: SetCallback<T, typeof key>) => {
+
+            //     produce((draft)=>)
+
+            // }
+
             return {
                 ...prev,
                 [key]: useContext(SetContext)
