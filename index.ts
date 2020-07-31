@@ -50,12 +50,7 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
             const produce: Updater<T[K]> = useContext(SetContext)
             const newProduce: SetProduce<T, K> = (cb) => {
                 produce((draft) => {
-                    if (typeof cb === "function") {
-                        return cb(draft, INITSTATE[key])
-                    }
-                    else {
-                        draft = cb
-                    }
+                    return typeof cb === "function" ? cb(draft, INITSTATE[key]) : cb
                 })
             }
 
