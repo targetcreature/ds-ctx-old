@@ -31,7 +31,8 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
     const CTX: ICTX<T> = Object.entries(INITSTATE).reduce((prev, [key, init]) => ({
         ...prev,
         [key]: {
-            initState: { [key]: init, init },
+            initState: [init, init],
+            // initState: { [key]: init, init },
             Context: createContext(init),
             SetContext: createContext(null)
         }
