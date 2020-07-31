@@ -48,15 +48,10 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
             type K = typeof key
 
             const produce: Updater<T[K]> = useContext(SetContext)
-            const newProduce = (cb: SetCallback<T, K>) => {
+            const newProduce = (value?: T[K], cb?: SetCallback<T, K>) => {
 
                 produce((draft) => {
-                    if (typeof cb === "function") {
-                        cb(draft, INITSTATE[key])
-                    }
-                    else {
-                        draft = cb
-                    }
+                    return !cb ? value : cb(draft, INITSTATE[key])
                 })
 
                 // if (typeof cb === "function") {
