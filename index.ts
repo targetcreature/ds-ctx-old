@@ -47,10 +47,12 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
     }
 
     const setStore = (): SetStore<T> =>
-        Object.entries(CTX).reduce((prev, [key, { SetContext }]) => ({
-            ...prev,
-            [key]: useContext(SetContext)
-        }), {} as SetStore<T>)
+        Object.entries(CTX).reduce((prev, [key, { SetContext }]) => {
+            return {
+                ...prev,
+                [key]: useContext(SetContext)
+            }
+        }, {} as SetStore<T>)
 
     return [
         ContextProvider,
