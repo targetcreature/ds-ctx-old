@@ -17,7 +17,7 @@ export type ICTX<T> = {
         SetContext: React.Context<SetStore<T>>
         state?: [
             T[K] & { init: T[K] },
-            (f?: (d: T[K] & { init: T[K] }) => void) => void
+            (f?: (d: T[K], i: T[K]) => void) => void
         ]
     }
 }
@@ -33,7 +33,6 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
         ...prev,
         [key]: {
             initState: init,
-            // initState: { [key]: init, init },
             Context: createContext(init),
             SetContext: createContext(null)
         }
@@ -57,7 +56,8 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
 
                 if (typeof cb === "function") {
                     produce((draft) => {
-                        cb(draft)
+                        const { init, ...value } = draft
+                        return cb(value, init)
                     })
                 }
                 else {
