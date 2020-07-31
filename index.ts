@@ -31,13 +31,14 @@ export const useDSC = <T extends Init>(INITSTATE: T, ARGS?: ArgProps): ReturnPro
     const CTX: ICTX<T> = Object.entries(INITSTATE).reduce((prev, [key, init]) => ({
         ...prev,
         [key]: {
-            initState: { [key]: init, init },
+            initState: init,
             Context: createContext(init),
             SetContext: createContext(null)
         }
     }), {})
 
     const ContextProvider = _provider(CTX)
+
 
     const useStore: UseStore<T> = <K extends keyof T>(key: K) => {
         const { init, ...value } = useContext(CTX[key].Context)
