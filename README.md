@@ -26,9 +26,7 @@ export const stores: {[store: string]:{}} = {
             color: "red"
         }
     },
-    movies:{
-        movies: ["Fargo", "Playtime", "Sleeping Beauty"]
-    }
+    movie: "Fargo"
 }
 ```
 
@@ -62,19 +60,24 @@ export const Component = ()=>{
 
     const { apples } = useStore("fruits")
     const { truck } = useStore("cars")
-    const { movies } = useStore("movies")
+    const { movie } = useStore("movie")
 
     const set = setStore()
 
-    const incrementApples = ()=> 
-        set.fruits((draft)=>{
+    const clickHandler = ()=> {
+        
+        set.fruits((draft, init)=>{
             draft.apples += 1
+            return draft
         }) 
+        set.movie("The Mask")
+        
+    }
 
     return(
         <div>
             <div>Apples: {apples}</div>
-            <button onClick={()=> incrementApples()}>Increment</button>
+            <button onClick={()=> clickHandler()}>Increment</button>
         </div>
     )
 }
